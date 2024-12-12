@@ -11,7 +11,7 @@ class ApiController extends Controller
 
     public function __construct() {
         $this->$apiKey = get("FLICKR_API_KEY");
-        $this->$secret = get("07a7300063d45205");
+        $this->$secret = get("FLICKR_SECRET");
     }
 
     public function filter(array $data){
