@@ -137,7 +137,7 @@ class ApiController extends Controller
                         'status' => 'error',
                         'message' => 'Ocurrió un error: ' . $e->getMessage(),
                         'data' => [],
-                    ], 500);
+                    ], 404);
                 }
                 
                 break;
@@ -153,6 +153,7 @@ class ApiController extends Controller
                 }
 
                 $photoInfo = $this->flickerService->photoInfo($photo_id);
+                $photoComments = $this->flickerService->photoComments($photo_id);
 
                 $tags = collect($photoInfo['photo']['tags']['tag'])->map(function ($tag) {
                     return $tag['_content'];
@@ -169,6 +170,7 @@ class ApiController extends Controller
                                 'realname' => $photo['owner']['realname'],
                                 'location' => $photo['owner']['location'],
                             ],
+                            'comments' => $photoComments['comments'] ?? [],
                             'dates' => $photo['dates'],
                             'tags' => $tags,
                             'url_p' => $this->flickerService->PhotoUrl($photo, 't'), // Preview pequeña
@@ -194,9 +196,9 @@ class ApiController extends Controller
                     // Manejo de errores
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Ocurrió un error al obtener la información de la foto: ' . $e->getMessage(),
+                        'message' => 'No se encontro ninguna coincidencia para esta foto.',
                         'data' => [],
-                    ], 500);
+                    ], 404);
                 }
 
 

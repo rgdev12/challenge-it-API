@@ -71,4 +71,20 @@ class FlickerService
         $response = $this->client->get('', ['query' => $params]);
         return json_decode($response->getBody(), true);
     }
+
+
+    public function photoComments($photoId)
+    {
+        $params = [
+            'method' => 'flickr.photos.comments.getList',
+            'api_key' => $this->Key,
+            'format' => 'json',
+            'lang' => 'es-us',
+            'nojsoncallback' => 1,
+            'photo_id' => $photoId,
+        ];
+    
+        $response = $this->client->get('', ['query' => $params]);
+        return json_decode($response->getBody(), true);
+    }
 }
