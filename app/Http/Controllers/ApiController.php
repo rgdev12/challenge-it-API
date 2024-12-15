@@ -170,7 +170,7 @@ class ApiController extends Controller
                                 'realname' => $photo['owner']['realname'],
                                 'location' => $photo['owner']['location'],
                             ],
-                            'comments' => $photoComments['comments'] ?? [],
+                            'comments' => $photoComments['comments']['comment'] ?? [],
                             'dates' => $photo['dates'],
                             'tags' => $tags,
                             'url_p' => $this->flickerService->PhotoUrl($photo, 't'), // Preview pequeña
