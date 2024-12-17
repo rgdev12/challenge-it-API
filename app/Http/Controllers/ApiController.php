@@ -91,10 +91,6 @@ class ApiController extends Controller
 
                                 $photoInfo = $this->flickerService->photoInfo($photo['id']);
 
-                                $tags = collect($photoInfo['photo']['tags']['tag'])->map(function ($tag) {
-                                    return $tag['_content'];
-                                });
-
                                 return [
                                     'id' => $photo['id'],
                                     'title' => $photo['title'],
@@ -104,7 +100,7 @@ class ApiController extends Controller
                                         'realname' => $photoInfo['photo']['owner']['realname'],
                                     ],
                                     'description' => $photoInfo['photo']['description']['_content'],
-                                    'tags' => $tags,
+                                    'tags' => [],
                                     'server' => $photo['server'],
                                     'url_p' => $this->flickerService->PhotoUrl($photo, 't'), // Preview pequeña
                                     'url_m' => $this->flickerService->PhotoUrl($photo, 'w'), // Preview mediana
@@ -155,9 +151,6 @@ class ApiController extends Controller
                 $photoInfo = $this->flickerService->photoInfo($photo_id);
                 $photoComments = $this->flickerService->photoComments($photo_id);
 
-                $tags = collect($photoInfo['photo']['tags']['tag'])->map(function ($tag) {
-                    return $tag['_content'];
-                });
 
                     if (isset($photoInfo['photo'])) {
                         $photo = $photoInfo['photo'];
@@ -172,7 +165,7 @@ class ApiController extends Controller
                             ],
                             'comments' => $photoComments['comments']['comment'] ?? [],
                             'dates' => $photo['dates'],
-                            'tags' => $tags,
+                            'tags' => [],
                             'url_p' => $this->flickerService->PhotoUrl($photo, 't'), // Preview pequeña
                             'url_m' => $this->flickerService->PhotoUrl($photo, 'w'), // Preview mediana
                             'url_g' => $this->flickerService->PhotoUrl($photo, 'b'), // Preview grande
