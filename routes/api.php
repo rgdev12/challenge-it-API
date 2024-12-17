@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/filter', [App\Http\Controllers\ApiController::class, 'filter']);
+Route::post('/photos', [App\Http\Controllers\ApiController::class, 'photos']);
